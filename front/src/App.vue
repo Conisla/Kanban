@@ -1,13 +1,25 @@
 <template>
     <AddTaskButton :blocks="blocks" :board="board"/>
-    <kanban-board :stages="stages" :blocks="blocks" @update-block="updateBlock" @updating="updateTaskInfo"></kanban-board>
+    <kanban-board :stages="stages" :blocks="blocks" @update-block="updateBlock" @updating="ShowUpdateTask"></kanban-board>
+    <div v-if="showUpTaskForm">
+        <form>
+            <label for="title">Task Title</label>
+            <input  v-model="upTitle" type="text" name="title" id="title">
+
+            <label for="descr">Task Description</label>
+            <input  v-model="upDescr" type="text" name="descr" id="descr">
+
+            <button type="submit" @click="UpdateTaskInfo()">Envoyer</button>
+        </form>
+        <button @click="showUpTaskForm = false">Close</button>
+    </div>
+
     <AddColButton :stages="stages"/>
 </template>
 
 <script>
   import AddTaskButton from './components/AddTaskButton.vue'
   import AddColButton from './components/AddColButton.vue'
-
 
 export default {
   name : 'App',
@@ -20,6 +32,15 @@ export default {
             board: [],
             stages: [],
             blocks: [],
+            toUpdate:0,
+            upTitle:'',
+            upDescr:'',
+            item:{
+              "title": "",
+              "descr": "",
+              "pos": 0,
+              "id_col": 0
+            },
             showUpTaskForm:false
         }
     },
@@ -29,32 +50,47 @@ export default {
     },
 
   methods: {
-    async updateTaskInfo(id){
-      console.log(id);
+    ShowUpdateTask(id){
+      this.toUpdate = id
       this.showUpTaskForm = true
+      let el = this.blocks.find(t => t.id == this.toUpdate)
+
+      let taches = this.board.find(e => e.title == el.status).taches
+
+      let index = taches.find(t => t.id_task == this.toUpdate).pos
+
+      this.item = {
+        title: el.title,
+        descr: el.descr,
+        pos: index,
+        id_col: Number(this.board.find(t => t.title == el.status).id_col)
+      }
+    },
+  
+    async UpdateTaskInfo(){
+      this.item.title = this.upTitle
+      this.item.descr = this.upDescr
+      
+      await fetch('http://localhost:8000/api/task/'+this.toUpdate+'/',{
+        method:'put',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.item)
+        
+      });
     },
 
     async updateBlock(id, status, index) {
-      console.log("=====================");
-      console.log("id_task = ",this.blocks.find(b => b.id === Number(id)).id );
-      console.log("old status =",this.blocks.find(b => b.id === Number(id)).status );
 
       var tache = this.blocks.find(b => b.id === Number(id)) 
-      tache.status = status;
 
-      console.log("id_col =",this.board.find(t => t.title == status).id_col);
-      console.log("tache =",tache);
       var item = {
         title:tache.title,
         descr:tache.descr,
         pos:index,
         id_col:this.board.find(t => t.title == status).id_col
       }
-
-      console.log("new status =",this.blocks.find(b => b.id === Number(id)).status );
-
-      console.log("index =", index );
-      console.log("=====================");
 
       await fetch('http://localhost:8000/api/task/'+id+'/',{
         method:'put',
