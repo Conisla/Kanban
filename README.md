@@ -9,9 +9,13 @@ Dans le dossier "backend", créez un environnement virtuel avec la commande suiv
 
 `py -m venv env`
 
+Activer l'environnement virtuelle
+
+`env\Scripts\activate`
+
 ### Backend
 
-Dans le dossier "backend", exécutez la commande suivante pour installer les dépendances Python:
+Exécutez la commande suivante pour installer les dépendances Python:
 
 `pip install -r requirements.txt`
 
