@@ -4,7 +4,13 @@ Ce projet utilise Django REST Framework pour l'API backend et Vue.js 3 pour le f
 L'arborescence du projet est divisée en deux dossiers: "backend" pour l'API et "front" pour le frontend.
 
 ## Installation des dépendances
+
+Dans le dossier "backend", créez un environnement virtuel avec la commande suivante:
+
+`py -m venv env`
+
 ### Backend
+
 Dans le dossier "backend", exécutez la commande suivante pour installer les dépendances Python:
 
 `pip install -r requirements.txt`
