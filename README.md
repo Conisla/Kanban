@@ -1,8 +1,8 @@
 # H1 Initialisation du projet avec Django REST Framework et Vue.js 3
 Ce projet utilise Django REST Framework pour l'API backend et Vue.js 3 pour le frontend. L'arborescence du projet est divisée en deux dossiers: "backend" pour l'API et "front" pour le frontend.
 
-Installation des dépendances
-Backend
+## H2 Installation des dépendances
+### H3 Backend
 Dans le dossier "backend", exécutez la commande suivante pour installer les dépendances Python:
 
 Copy code
@@ -12,7 +12,7 @@ Dans le dossier "front", exécutez la commande suivante pour installer les dépe
 
 css
 Copy code
-npm i
+ `code` npm i
 Configuration de l'API backend
 Avant de lancer le serveur backend, vous devez configurer l'API. Copiez le fichier ".env.example" et renommez-le en ".env". Dans ce fichier, vous pouvez définir les variables d'environnement pour l'API, telles que la base de données, les clés d'API, etc.
 
