@@ -1,4 +1,4 @@
-# Initialisation du projet avec Django REST Framework et Vue.js 3
+# Initialisation du projet KANBAN avec Django REST Framework et Vue.js 3
 Ce projet utilise Django REST Framework pour l'API backend et Vue.js 3 pour le frontend. L'arborescence du projet est divisée en deux dossiers: "backend" pour l'API et "front" pour le frontend.
 
 ## Installation des dépendances
