@@ -1,15 +1,28 @@
 <template>
-    <div>
-        <button @click="showForm = true">Add Task</button>
-        <div v-if="showForm">
-            <form>
+
+    <label for="task-modal" class="btn flex w-64 space-x-8 mb-2 mx-2">
+        <span class="text-2xl font-bold text-white">+</span> 
+       <p> Ajouter une tache</p>
+    </label>
+    <input type="checkbox" id="task-modal" class="modal-toggle"/>
+
+    <div class="modal">
+        <div class="modal-box">
+
+            <label for="task-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <h2 class="mb-4">Ajouter une tache</h2>
+
+            <!-- Form fields for creating a new column -->
+            <form class="grid grid-flow-row ">
                 <label for="title">Task Title</label>
                 <input  v-model="newTitle" type="text" name="title" id="title">
                 <label for="descr">Task Description</label>
                 <input  v-model="newDescr" type="text" name="descr" id="descr">
-                <button type="submit" @click="createTask">Envoyer</button>
+                <div class="modal-action">
+                    <button class="btn" @click="createTask">Envoyer</button>
+                </div>
             </form>
-            <button @click="showForm = false">Close</button>
+            
         </div>
     </div>
 </template>
@@ -32,7 +45,7 @@ export default {
             newTitle:'',
             newDescr:'',
             position:0,
-            idCol:0,
+            idCol:-1,
             showForm: false,
         }
     },

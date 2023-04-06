@@ -1,14 +1,26 @@
 <template>
-    <div>
-        <button @click="showForm = true">Add Column</button>
-        <div v-if="showForm">
-            <form>
-                <!-- Form fields for creating a new column -->
-                <label for="title">Column Title</label>
+    <label for="col-modal" class="btn h-auto w-20 my-2 mx-2">
+        <span class="text-2xl font-bold text-white">+</span> 
+        Ajouter une Colonne
+    </label>
+    <input type="checkbox" id="col-modal" class="modal-toggle"/>
+
+    <div class="modal">
+        <div class="modal-box">
+
+            <label for="col-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <h2 class="mb-4">Ajouter une colonne</h2>
+
+            <!-- Form fields for creating a new column -->
+            <form class="grid grid-flow-row ">
+                
+                <label for="title" class="mb-2 ">Column Title</label>
                 <input  v-model="newTitle" type="text" name="title" id="title">
-                <button @click="createCol">Envoyer</button>
+                <div class="modal-action">
+                    <button class="btn" @click="createCol">Envoyer</button>
+                </div>
             </form>
-            <button @click="showForm = false">Close</button>
+            
         </div>
     </div>
 </template>
@@ -44,6 +56,8 @@
                 },
                 body: JSON.stringify(item)   
             });
+
+            this.$emit('col-created');
         }
 
     }
